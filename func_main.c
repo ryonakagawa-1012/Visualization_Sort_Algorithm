@@ -4,6 +4,11 @@
 #include <stdio.h>
 #include <handy.h>
 
+#define WINDOW_X 1000
+#define WINDOW_Y 600
+
+int GenerateAndShuffleArray(int array[], int length);
+
 int select_algorithm(void){
     int algorithm;
     printf("見たいソートアルゴリズムを選んでください\n\n");
@@ -29,6 +34,10 @@ int sort_length(void){
 }
 
 void bubbleSort(int length){
+    int array[length];
+
+    GenerateAndShuffleArray(array, length);
+
 
 }
 

@@ -4,9 +4,6 @@
 #include <stdio.h>
 #include <handy.h>
 
-#define WINDOW_X 1000
-#define WINDOW_Y 800
-
 int select_algorithm(void); // 見たいアルゴリズムを選ぶCUI画面を表示する関数
 int sort_length(void); // ソートする配列の長さを決める関数
 
@@ -62,8 +59,8 @@ int main (){
             break;
     }
 
-//    HgGetChar();
-//    HgClose();
+    HgGetChar();
+    HgClose();
 
     return 0;
 }
