@@ -8,6 +8,8 @@
 #define WINDOW_Y 600
 
 int GenerateAndShuffleArray(int array[], int length);
+int IsNotSorted(int array[], int length);
+
 
 int select_algorithm(void){
     int algorithm;
@@ -38,7 +40,24 @@ void bubbleSort(int length){
 
     GenerateAndShuffleArray(array, length);
 
+    HgOpen(WINDOW_X, WINDOW_Y);
 
+    while (IsNotSorted(array, length)){
+        for (int i = 0; i < length - 1; i++) {
+            if (array[i] > array[i + 1]) {
+                // array[i] と array[i + 1] を交換
+                int temp = array[i];
+                array[i] = array[i + 1];
+                array[i + 1] = temp;
+            }
+        }
+
+        // 配列の状態を出力
+        for (int k = 0; k < length; k++) {
+            printf("%d ", array[k]);
+        }
+        printf("\n");
+    }
 }
 
 void selectionSort(int length){

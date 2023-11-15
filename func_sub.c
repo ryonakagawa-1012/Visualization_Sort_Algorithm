@@ -5,6 +5,12 @@
 #include <stdlib.h>
 #include <time.h>
 
+typedef struct {
+    double x; // 棒グラフのx座標
+    double y; // 棒グラフのy座標
+    double height;  // 棒グラフの高さ
+} bar_graph;
+
 void GenerateAndShuffleArray(int array[], int length) {
     for (int i = 0; i < length; i++) {
         array[i] = i+1;
@@ -21,3 +27,13 @@ void GenerateAndShuffleArray(int array[], int length) {
         array[j] = temp;
     }
 }
+
+int IsNotSorted(int array[], int length){
+    for (int i = 0; i < length - 1; i++) {
+        if (array[i] > array[i+1]) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
