@@ -1,14 +1,12 @@
 //
 // Created by 中川諒 on 2023/11/13.
 //
-#include <stdio.h>
-#include <handy.h>
 
-#define WINDOW_X 1000
-#define WINDOW_Y 600
+#include "main.h"
 
 int GenerateAndShuffleArray(int array[], int length);
 int IsNotSorted(int array[], int length);
+void draw_bar_graph(int array[], int length);
 
 
 int select_algorithm(void){
@@ -52,15 +50,11 @@ void bubbleSort(int length){
             }
         }
 
-        // 配列の状態を出力
-        for (int k = 0; k < length; k++) {
-            printf("%d ", array[k]);
-        }
-        printf("\n");
+        draw_bar_graph(array, length); // 棒グラフを描画
     }
 }
 
-void selectionSort(int length){
+void selectionSort(int length){　
 
 }
 

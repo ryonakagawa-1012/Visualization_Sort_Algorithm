@@ -1,8 +1,8 @@
 //
 // Created by 中川諒 on 2023/11/13.
 //
-#include <stdio.h>
-#include <handy.h>
+
+#include "main.h"
 
 int select_algorithm(void); // 見たいアルゴリズムを選ぶCUI画面を表示する関数
 int sort_length(void); // ソートする配列の長さを決める関数
