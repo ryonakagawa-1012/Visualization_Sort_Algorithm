@@ -10,8 +10,8 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define WINDOW_X 1000
-#define WINDOW_Y 600
+#define WINDOW_X 1000.0
+#define WINDOW_Y 600.0
 
 typedef struct {
     double x; // 棒グラフの左下隅のx座標
