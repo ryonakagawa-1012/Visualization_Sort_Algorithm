@@ -93,7 +93,33 @@ void selectionSort(int length){
 }
 
 void insertionSort(int length){
+    int array[length];
+    bar_graph bar[length];
 
+    GenerateAndShuffleArray(array, length);
+
+    HgOpen(WINDOW_X, WINDOW_Y);
+
+    int layer_id;
+    doubleLayer layers;
+    layers = HgWAddDoubleLayer(0);
+
+    for (int i = 1; i < length; i++) {
+        int key = array[i];
+        int j = i - 1;
+
+        // array[j] を右に移動
+        while (j >= 0 && array[j] > key) {
+            array[j + 1] = array[j];
+            j = j - 1;
+        }
+        array[j + 1] = key;
+
+        layer_id = HgLSwitch(&layers);
+        draw_bar_graph(array, length, bar, layer_id); // 棒グラフを描画
+    }
+    layer_id = HgLSwitch(&layers);
+    draw_bar_graph(array, length, bar, layer_id); //最後のレイヤーを表示
 }
 
 void quickSort(int length){
