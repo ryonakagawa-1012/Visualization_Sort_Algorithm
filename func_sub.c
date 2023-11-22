@@ -53,5 +53,5 @@ void draw_bar_graph(int array[], int length){
     for (int i = 0; i < length; i++) {
         HgBox(bar[i].x, bar[i].y, bar[i].width, bar[i].height);
     }
-    HgSleep(1);
+    HgSleep(0.1);
 }

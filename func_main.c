@@ -54,7 +54,7 @@ void bubbleSort(int length){
     }
 }
 
-void selectionSort(int length){　
+void selectionSort(int length){
 
 }
 
