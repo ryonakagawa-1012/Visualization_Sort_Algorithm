@@ -10,14 +10,18 @@ int sort_length(void); // ソートする配列の長さを決める関数
 void bubbleSort(int Length); // バブルソートを行う関数
 void selectionSort(int Length); // 選択ソートを行う関数
 void insertionSort(int Length); // 挿入ソートを行う関数
-void quickSort(int Length); // クイックソートを行う関数
+void quickSort(int Length, int Pivot); // クイックソートを行う関数
 void mergeSort(int Length); // マージソートを行う関数
 void heapSort(int Length); // ヒープソートを行う関数
 void bogoSort(int Length); // ボゴソートを行う関数
 
 
 int main (){
-    int algorithm = select_algorithm();
+    int algorithm = -1;
+
+    while (algorithm < 0 || 6 < algorithm){
+        algorithm = select_algorithm();
+    }
 
     switch (algorithm) {
         case 0:
@@ -37,7 +41,14 @@ int main (){
 
         case 3:
             printf("クイックソートを選択しました\n\n");
-            quickSort(sort_length());
+            int length = sort_length();
+            int pivot = -1;
+            while (pivot < 0 || length < pivot) {
+                printf("ピボットの位置を決めてください(%d以下)\n", length);
+                printf(">>> ");
+                scanf("%d", &pivot);
+            }
+            quickSort(length, pivot);
             break;
 
         case 4:

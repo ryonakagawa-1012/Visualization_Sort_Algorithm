@@ -11,7 +11,7 @@ void draw_bar_graph(int array[], int length, bar_graph bar[], int layer_id);
 
 int select_algorithm(void){
     int algorithm;
-    printf("見たいソートアルゴリズムを選んでください\n\n");
+    printf("見たいソートアルゴリズムを選んでください(0以上6以下)\n\n");
     printf("0: バブルソート\n");
     printf("1: 選択ソート\n");
     printf("2: 挿入ソート\n");
@@ -122,7 +122,7 @@ void insertionSort(int length){
     draw_bar_graph(array, length, bar, layer_id); //最後のレイヤーを表示
 }
 
-void quickSort(int length){
+void quickSort(int length, int pivot){
 
 }
 
