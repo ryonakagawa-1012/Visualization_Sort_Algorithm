@@ -6,7 +6,7 @@
 
 int GenerateAndShuffleArray(int array[], int length);
 int IsNotSorted(int array[], int length);
-void draw_bar_graph(int array[], int length);
+void draw_bar_graph(int array[], int length, bar_graph bar[], int layer_id);
 
 
 int select_algorithm(void){
@@ -37,8 +37,13 @@ void bubbleSort(int length){
     int array[length];
 
     GenerateAndShuffleArray(array, length);
+    bar_graph bar[length];
 
     HgOpen(WINDOW_X, WINDOW_Y);
+
+    int layer_id;
+    doubleLayer layers;
+    layers = HgWAddDoubleLayer(0);
 
     while (IsNotSorted(array, length)){
         for (int i = 0; i < length - 1; i++) {
@@ -49,9 +54,11 @@ void bubbleSort(int length){
                 array[i + 1] = temp;
             }
         }
-
-        draw_bar_graph(array, length); // 棒グラフを描画
+        layer_id = HgLSwitch(&layers);
+        draw_bar_graph(array, length, bar, layer_id); // 棒グラフを描画
     }
+    layer_id = HgLSwitch(&layers);
+    draw_bar_graph(array, length, bar,layer_id); //最後のレイヤーを表示
 }
 
 void selectionSort(int length){

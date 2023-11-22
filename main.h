@@ -13,4 +13,11 @@
 #define WINDOW_X 1000
 #define WINDOW_Y 600
 
+typedef struct {
+    double x; // 棒グラフの左下隅のx座標
+    double y; // 棒グラフの左下隅のy座標
+    double width; // 棒グラフの幅
+    double height;  // 棒グラフの高さ
+} bar_graph;
+
 #endif //SORT_ALGORITHM_MAIN_H
