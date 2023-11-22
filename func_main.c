@@ -62,7 +62,34 @@ void bubbleSort(int length){
 }
 
 void selectionSort(int length){
+    int array[length];
+    bar_graph bar[length];
 
+    GenerateAndShuffleArray(array, length);
+
+    HgOpen(WINDOW_X, WINDOW_Y);
+
+    int layer_id;
+    doubleLayer layers;
+    layers = HgWAddDoubleLayer(0);
+
+    for (int i = 0; i < length - 1; i++) {
+        int min_index = i;
+        for (int j = i + 1; j < length; j++) {
+            if (array[j] < array[min_index]) {
+                min_index = j;
+            }
+        }
+        // array[i] と array[min_index] を交換
+        int temp = array[i];
+        array[i] = array[min_index];
+        array[min_index] = temp;
+
+        layer_id = HgLSwitch(&layers);
+        draw_bar_graph(array, length, bar, layer_id); // 棒グラフを描画
+    }
+    layer_id = HgLSwitch(&layers);
+    draw_bar_graph(array, length, bar, layer_id); //最後のレイヤーを表示
 }
 
 void insertionSort(int length){
