@@ -8,7 +8,7 @@ int GenerateAndShuffleArray(int array[], int length);
 int IsNotSorted(int array[], int length);
 void draw_bar_graph(int array[], int length, bar_graph bar[], int layer_id);
 
-void mergeSortHelper(int array[], int left, int right);
+void mergeSortHelper(int array[], int length, int left, int right, bar_graph bar[], doubleLayer *layers);
 
 
 int select_algorithm(void){
@@ -129,6 +129,21 @@ void quickSort(int length, int pivot){
 }
 
 void mergeSort(int length) {
+    int array[length];
+    bar_graph bar[length];
+
+    GenerateAndShuffleArray(array, length);
+
+    HgOpen(WINDOW_X, WINDOW_Y);
+
+    int layer_id;
+    doubleLayer layers;
+    layers = HgWAddDoubleLayer(0);
+
+    mergeSortHelper(array, length, 0, length - 1, bar, &layers);
+
+    layer_id = HgLSwitch(&layers);
+    draw_bar_graph(array, length, bar, layer_id); //最後のレイヤーを表示
 
 }
 
