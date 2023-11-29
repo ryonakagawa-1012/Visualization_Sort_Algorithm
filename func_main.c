@@ -137,5 +137,23 @@ void heapSort(int length){
 }
 
 void bogoSort(int length){
+    int array[length];
+    bar_graph bar[length];
 
+    GenerateAndShuffleArray(array, length);
+
+    HgOpen(WINDOW_X, WINDOW_Y);
+
+    int layer_id;
+    doubleLayer layers;
+    layers = HgWAddDoubleLayer(0);
+
+    while (IsNotSorted(array, length)){
+        GenerateAndShuffleArray(array, length); // 配列をシャッフル
+
+        layer_id = HgLSwitch(&layers);
+        draw_bar_graph(array, length, bar, layer_id); // 棒グラフを描画
+    }
+    layer_id = HgLSwitch(&layers);
+    draw_bar_graph(array, length, bar, layer_id); //最後のレイヤーを表示
 }
