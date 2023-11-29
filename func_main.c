@@ -8,6 +8,8 @@ int GenerateAndShuffleArray(int array[], int length);
 int IsNotSorted(int array[], int length);
 void draw_bar_graph(int array[], int length, bar_graph bar[], int layer_id);
 
+void mergeSortHelper(int array[], int left, int right);
+
 
 int select_algorithm(void){
     int algorithm;
@@ -126,7 +128,7 @@ void quickSort(int length, int pivot){
 
 }
 
-void mergeSort(int length){
+void mergeSort(int length) {
 
 }
 

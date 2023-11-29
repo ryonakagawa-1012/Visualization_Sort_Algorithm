@@ -44,5 +44,7 @@ void draw_bar_graph(int array[], int length, bar_graph bar[], int layer_id){
     for (int i = 0; i < length; i++) {
         HgWBox(layer_id, bar[i].x, bar[i].y, bar[i].width, bar[i].height);
     }
-    HgSleep(0.1);
+    if (length < 500){
+        HgSleep(0.1);
+    }
 }
