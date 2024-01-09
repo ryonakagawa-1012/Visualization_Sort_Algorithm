@@ -15,9 +15,7 @@
     ```
     hgcc main.c func_main.c func_sub.c && ./a.out
     ```
+    https://github.com/ryonakagawa-1012/Visualization_Sort_Algorithm/assets/132760282/e88fc266-d58a-4deb-99f8-d01cd27f3047
 2. 画面上にソートアルゴリズムの選択肢が表示されるので、数字を入力する
 3. ソートアルゴリズムが実行される
-
-
-https://github.com/ryonakagawa-1012/Visualization_Sort_Algorithm/assets/132760282/e88fc266-d58a-4deb-99f8-d01cd27f3047
 
