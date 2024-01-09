@@ -19,7 +19,7 @@ void bogoSort(int Length); // ボゴソートを行う関数
 int main (){
     int algorithm = -1;
 
-    while (algorithm < 0 || 6 < algorithm){
+    while (algorithm < 0 || 4 < algorithm){
         algorithm = select_algorithm();
     }
 
@@ -39,29 +39,29 @@ int main (){
             insertionSort(sort_length());
             break;
 
-        case 3:
-            printf("クイックソートを選択しました\n\n");
-            int length = sort_length();
-            int pivot = -1;
-            while (pivot < 0 || length < pivot) {
-                printf("ピボットの位置を決めてください(%d以下)\n", length);
-                printf(">>> ");
-                scanf("%d", &pivot);
-            }
-            quickSort(length, pivot);
-            break;
+//        case 3:
+//            printf("クイックソートを選択しました\n\n");
+//            int length = sort_length();
+//            int pivot = -1;
+//            while (pivot < 0 || length < pivot) {
+//                printf("ピボットの位置を決めてください(%d以下)\n", length);
+//                printf(">>> ");
+//                scanf("%d", &pivot);
+//            }
+//            quickSort(length, pivot);
+//            break;
 
-        case 4:
+        case 3:
             printf("マージソートを選択しました\n\n");
             mergeSort(sort_length());
             break;
 
-        case 5:
-            printf("ヒープソートを選択しました\n\n");
-            heapSort(sort_length());
-            break;
+//        case 5:
+//            printf("ヒープソートを選択しました\n\n");
+//            heapSort(sort_length());
+//            break;
 
-        case 6:
+        case 4:
             printf("ボゴソートを選択しました\n\n");
             bogoSort(sort_length());
             break;

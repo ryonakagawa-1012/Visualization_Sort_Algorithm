@@ -6,21 +6,21 @@
 
 int GenerateAndShuffleArray(int array[], int length);
 int IsNotSorted(int array[], int length);
-void draw_bar_graph(int array[], int length, bar_graph bar[], int layer_id);
+void draw_bar_graph(int array[], int length, bar_graph bar[], int layer_id, int n);
 
-void mergeSortHelper(int array[], int length, int left, int right, bar_graph bar[], doubleLayer *layers);
+void mergeSortHelper(int array[], int length, int left, int right, bar_graph bar[], doubleLayer *layers, int *n);
 
 
 int select_algorithm(void){
     int algorithm;
-    printf("見たいソートアルゴリズムを選んでください(0以上6以下)\n\n");
+    printf("見たいソートアルゴリズムを選んでください(0以上4以下)\n\n");
     printf("0: バブルソート\n");
     printf("1: 選択ソート\n");
     printf("2: 挿入ソート\n");
-    printf("3: クイックソート\n");
-    printf("4: マージソート\n");
-    printf("5: ヒープソート\n");
-    printf("6: ボゴソート\n\n");
+//    printf("3: クイックソート\n");
+    printf("3: マージソート\n");
+//    printf("5: ヒープソート\n");
+    printf("4: ボゴソート\n\n");
 
     printf(">>> ");
     scanf("%d", &algorithm);
@@ -37,6 +37,7 @@ int sort_length(void){
 
 void bubbleSort(int length){
     int array[length];
+    int n = 0;
 
     GenerateAndShuffleArray(array, length);
     bar_graph bar[length];
@@ -47,7 +48,8 @@ void bubbleSort(int length){
     doubleLayer layers;
     layers = HgWAddDoubleLayer(0);
 
-    while (IsNotSorted(array, length)){
+    while (IsNotSorted(array, length)){ // ソートが終わるまで繰り返す
+        n++;
         for (int i = 0; i < length - 1; i++) {
             if (array[i] > array[i + 1]) {
                 // array[i] と array[i + 1] を交換
@@ -57,10 +59,10 @@ void bubbleSort(int length){
             }
         }
         layer_id = HgLSwitch(&layers);
-        draw_bar_graph(array, length, bar, layer_id); // 棒グラフを描画
+        draw_bar_graph(array, length, bar, layer_id, n); // 棒グラフを描画
     }
     layer_id = HgLSwitch(&layers);
-    draw_bar_graph(array, length, bar,layer_id); //最後のレイヤーを表示
+    draw_bar_graph(array, length, bar,layer_id, n+1); //最後のレイヤーを表示
 }
 
 void selectionSort(int length){
@@ -71,11 +73,12 @@ void selectionSort(int length){
 
     HgOpen(WINDOW_X, WINDOW_Y);
 
-    int layer_id;
+    int layer_id, i;
     doubleLayer layers;
     layers = HgWAddDoubleLayer(0);
 
-    for (int i = 0; i < length - 1; i++) {
+    for (i = 0; i < length - 1; i++) {// 配列の最後の要素まで繰り返す
+        // 配列の最小値を探す
         int min_index = i;
         for (int j = i + 1; j < length; j++) {
             if (array[j] < array[min_index]) {
@@ -88,10 +91,10 @@ void selectionSort(int length){
         array[min_index] = temp;
 
         layer_id = HgLSwitch(&layers);
-        draw_bar_graph(array, length, bar, layer_id); // 棒グラフを描画
+        draw_bar_graph(array, length, bar, layer_id, i+1); // 棒グラフを描画
     }
     layer_id = HgLSwitch(&layers);
-    draw_bar_graph(array, length, bar, layer_id); //最後のレイヤーを表示
+    draw_bar_graph(array, length, bar, layer_id, i); //最後のレイヤーを表示
 }
 
 void insertionSort(int length){
@@ -102,12 +105,12 @@ void insertionSort(int length){
 
     HgOpen(WINDOW_X, WINDOW_Y);
 
-    int layer_id;
+    int layer_id, i;
     doubleLayer layers;
     layers = HgWAddDoubleLayer(0);
 
-    for (int i = 1; i < length; i++) {
-        int key = array[i];
+    for (i = 1; i < length; i++) { // 配列の最後の要素まで繰り返す
+        int key = array[i]; // 挿入する値
         int j = i - 1;
 
         // array[j] を右に移動
@@ -115,13 +118,13 @@ void insertionSort(int length){
             array[j + 1] = array[j];
             j = j - 1;
         }
-        array[j + 1] = key;
+        array[j + 1] = key; // 挿入する値を挿入
 
         layer_id = HgLSwitch(&layers);
-        draw_bar_graph(array, length, bar, layer_id); // 棒グラフを描画
+        draw_bar_graph(array, length, bar, layer_id, i-1); // 棒グラフを描画
     }
     layer_id = HgLSwitch(&layers);
-    draw_bar_graph(array, length, bar, layer_id); //最後のレイヤーを表示
+    draw_bar_graph(array, length, bar, layer_id, i); //最後のレイヤーを表示
 }
 
 void quickSort(int length, int pivot){
@@ -139,11 +142,11 @@ void mergeSort(int length) {
     int layer_id;
     doubleLayer layers;
     layers = HgWAddDoubleLayer(0);
-
-    mergeSortHelper(array, length, 0, length - 1, bar, &layers);
+    int n = 0;
+    mergeSortHelper(array, length, 0, length - 1, bar, &layers, &n); // マージソートを実行
 
     layer_id = HgLSwitch(&layers);
-    draw_bar_graph(array, length, bar, layer_id); //最後のレイヤーを表示
+    draw_bar_graph(array, length, bar, layer_id, n+1); //最後のレイヤーを表示
 
 }
 
@@ -160,15 +163,26 @@ void bogoSort(int length){
     HgOpen(WINDOW_X, WINDOW_Y);
 
     int layer_id;
+    int n = 0;
+
     doubleLayer layers;
     layers = HgWAddDoubleLayer(0);
 
     while (IsNotSorted(array, length)){
-        GenerateAndShuffleArray(array, length); // 配列をシャッフル
+        n++;
+        for (int i = length - 1; i > 0; --i) {
+        // 0からiまでのランダムな位置を選ぶ
+        int j = rand() % (i + 1);
+
+        // array[i] と array[j] を交換
+        int temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
 
         layer_id = HgLSwitch(&layers);
-        draw_bar_graph(array, length, bar, layer_id); // 棒グラフを描画
+        draw_bar_graph(array, length, bar, layer_id, n); // 棒グラフを描画
     }
     layer_id = HgLSwitch(&layers);
-    draw_bar_graph(array, length, bar, layer_id); //最後のレイヤーを表示
+    draw_bar_graph(array, length, bar, layer_id, n+1); //最後のレイヤーを表示
 }

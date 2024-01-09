@@ -30,7 +30,7 @@ int IsNotSorted(int array[], int length){
     return 0;
 }
 
-void draw_bar_graph(int array[], int length, bar_graph bar[], int layer_id){
+void draw_bar_graph(int array[], int length, bar_graph bar[], int layer_id, int n){
 
     for (int i = 0; i < length; i++) {
         bar[i].x = WINDOW_X / length * i;
@@ -40,6 +40,9 @@ void draw_bar_graph(int array[], int length, bar_graph bar[], int layer_id){
     }
 
     HgLClear(layer_id);
+
+//    HgWText(layer_id , 0, 0, "n = %d", n);
+
     HgWSetFillColor(layer_id, HG_BLACK);
     for (int i = 0; i < length; i++) {
         HgWBox(layer_id, bar[i].x, bar[i].y, bar[i].width, bar[i].height);
@@ -49,14 +52,15 @@ void draw_bar_graph(int array[], int length, bar_graph bar[], int layer_id){
     }
 }
 
-void merge(int array[], int length, int left, int mid, int right, bar_graph bar[], doubleLayer *layers){
+void merge(int array[], int length, int left, int mid, int right, bar_graph bar[], doubleLayer *layers, int *n){
+    (*n)++;
     int i, j, k;
     int n1 = mid - left + 1;
     int n2 = right - mid;
 
     int L[n1], R[n2];
 
-    for (i = 0; i < n1; i++)
+    for (i = 0; i < n1; i++) // 配列L[0..n1]とR[0..n2]を作成
         L[i] = array[left + i];
     for (j = 0; j < n2; j++)
         R[j] = array[mid + 1 + j];
@@ -64,7 +68,7 @@ void merge(int array[], int length, int left, int mid, int right, bar_graph bar[
     i = 0;
     j = 0;
     k = left;
-    while (i < n1 && j < n2){
+    while (i < n1 && j < n2){ // 配列LとRをマージ
         if (L[i] <= R[j]){
             array[k] = L[i];
             i++;
@@ -76,30 +80,31 @@ void merge(int array[], int length, int left, int mid, int right, bar_graph bar[
         k++;
     }
 
-    while (i < n1){
+    while (i < n1){ // Lに残っている要素をコピー
         array[k] = L[i];
         i++;
         k++;
     }
 
-    while (j < n2){
+    while (j < n2){ // Rに残っている要素をコピー
         array[k] = R[j];
         j++;
         k++;
     }
 
     int layer_id = HgLSwitch(layers);
-    draw_bar_graph(array, length, bar, layer_id); // 棒グラフを描画
+    draw_bar_graph(array, length, bar, layer_id, *n); // 棒グラフを描画
 }
 
-void mergeSortHelper(int array[], int length,int left, int right, bar_graph bar[], doubleLayer *layers){
-    if (left < right){
-        int mid = left + (right - left) / 2;
+void mergeSortHelper(int array[], int length,int left, int right, bar_graph bar[], doubleLayer *layers, int *n){
+    (*n)++;
+    if (left < right){ // 配列の要素が2つ以上ある場合
+        int mid = left + (right - left) / 2; // 配列を分割するためのインデックスを計算
 
-        mergeSortHelper(array, length,left, mid, bar, layers);
-        mergeSortHelper(array, length,mid + 1, right, bar, layers);
+        mergeSortHelper(array, length,left, mid, bar, layers, n); // 左側をマージソート
+        mergeSortHelper(array, length,mid + 1, right, bar, layers, n); // 右側をマージソート
 
-        merge(array, length,left, mid, right, bar, layers);
+        merge(array, length,left, mid, right, bar, layers, n); // 左右をマージ
     }
 
 }
