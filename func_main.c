@@ -7,6 +7,7 @@
 int GenerateAndShuffleArray(int array[], int length);
 int IsNotSorted(int array[], int length);
 void draw_bar_graph(int array[], int length, bar_graph bar[], int layer_id, int n);
+void draw_bar_graph_for_Ста́линСорт(int array[], int length, int удалять_length, bar_graph bar[], int layer_id, int is_После_чистки);
 
 void mergeSortHelper(int array[], int length, int left, int right, bar_graph bar[], doubleLayer *layers, int *n);
 
@@ -20,7 +21,8 @@ int select_algorithm(void){
 //    printf("3: クイックソート\n");
     printf("3: マージソート\n");
 //    printf("5: ヒープソート\n");
-    printf("4: ボゴソート\n\n");
+    printf("4: ボゴソート\n");
+    printf("5: Ста́линСорт\n\n");
 
     printf(">>> ");
     scanf("%d", &algorithm);
@@ -30,6 +32,14 @@ int select_algorithm(void){
 int sort_length(void){
     int length;
     printf("ソートする配列の長さを決めてください\n\n");
+    printf(">>> ");
+    scanf("%d", &length);
+    return length;
+}
+
+int sort_length_for_СталинСорт(void){
+    int length;
+    printf("Определить длину массива, который нужно отсортировать\n\n");
     printf(">>> ");
     scanf("%d", &length);
     return length;
@@ -185,4 +195,42 @@ void bogoSort(int length){
     }
     layer_id = HgLSwitch(&layers);
     draw_bar_graph(array, length, bar, layer_id, n+1); //最後のレイヤーを表示
+}
+
+void Ста́линСорт(int length){
+    int array[length];
+    int удалять_array[length]; //粛清後の配列
+    int удалять_length = -1; //粛清後の配列の長さ
+    bar_graph_for_СталинСорт bar_for_СталинСорт[length];
+
+    for (int i = 0; i < length; i++) {
+        bar_for_СталинСорт[i].is_удалять = FALSE;
+    }
+
+    GenerateAndShuffleArray(array, length);
+
+    HgOpen(WINDOW_X, WINDOW_Y);
+
+    int layer_id;
+    int n = 0;
+
+    doubleLayer layers;
+    layers = HgWAddDoubleLayer(0);
+
+    int tmp = array[0] - 1;
+    for (int i = 0; i < length; i++) {
+        if (tmp <= array[i]) {
+            удалять_array[++удалять_length] = array[i];
+            tmp = array[i];
+            bar_for_СталинСорт[i].is_удалять = FALSE;
+        } else {
+            bar_for_СталинСорт[i].is_удалять = TRUE;
+        }
+
+        layer_id = HgLSwitch(&layers);
+        draw_bar_graph_for_Ста́линСорт(array, length, удалять_length, bar_for_СталинСорт, layer_id, FALSE); // 棒グラフを描画
+    }
+    layer_id = HgLSwitch(&layers);
+    draw_bar_graph_for_Ста́линСорт(удалять_array, length, удалять_length, bar_for_СталинСорт, layer_id, TRUE); //最後のレイヤーを表示
+
 }

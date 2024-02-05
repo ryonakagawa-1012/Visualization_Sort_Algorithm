@@ -52,6 +52,41 @@ void draw_bar_graph(int array[], int length, bar_graph bar[], int layer_id, int 
     }
 }
 
+void draw_bar_graph_for_Ста́линСорт(int array[], int length, int удалять_length, bar_graph_for_СталинСорт bar[], int layer_id, int is_После_чистки){
+
+    if (is_После_чистки){
+        for (int i = 0; i < удалять_length; i++) {
+            bar[i].x = WINDOW_X / length * i;
+            bar[i].y = 0;
+            bar[i].width = WINDOW_X / length;
+            bar[i].height = WINDOW_Y / length * array[i];
+        }
+    } else {
+        for (int i = 0; i < length; i++) {
+            bar[i].x = WINDOW_X / length * i;
+            bar[i].y = 0;
+            bar[i].width = WINDOW_X / length;
+            bar[i].height = WINDOW_Y / length * array[i];
+        }
+    }
+
+    HgLClear(layer_id);
+
+    HgWSetFillColor(layer_id, HG_WHITE);
+    for (int i = 0; i < length; i++) {
+        if (bar[i].is_удалять == TRUE){
+            HgWSetFillColor(layer_id, HG_RED);
+        } else {
+            HgWSetFillColor(layer_id, HG_WHITE);
+        }
+        HgWBoxFill(layer_id, bar[i].x, bar[i].y, bar[i].width, bar[i].height, 1);
+    }
+    if (length < 500){
+        HgSleep(0.1);
+    }
+}
+
+
 void merge(int array[], int length, int left, int mid, int right, bar_graph bar[], doubleLayer *layers, int *n){
     (*n)++;
     int i, j, k;

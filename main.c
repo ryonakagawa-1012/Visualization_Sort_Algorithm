@@ -7,6 +7,8 @@
 int select_algorithm(void); // 見たいアルゴリズムを選ぶCUI画面を表示する関数
 int sort_length(void); // ソートする配列の長さを決める関数
 
+int sort_length_for_СталинСорт(void); // ソートする配列の長さを決める関数(スターリンソート用)
+
 void bubbleSort(int Length); // バブルソートを行う関数
 void selectionSort(int Length); // 選択ソートを行う関数
 void insertionSort(int Length); // 挿入ソートを行う関数
@@ -14,12 +16,13 @@ void quickSort(int Length, int Pivot); // クイックソートを行う関数
 void mergeSort(int Length); // マージソートを行う関数
 void heapSort(int Length); // ヒープソートを行う関数
 void bogoSort(int Length); // ボゴソートを行う関数
+void Ста́линСорт(int Length); // スターリンソートを行う関数
 
 
 int main (){
     int algorithm = -1;
 
-    while (algorithm < 0 || 4 < algorithm){
+    while (algorithm < 0 || 5 < algorithm){
         algorithm = select_algorithm();
     }
 
@@ -64,6 +67,11 @@ int main (){
         case 4:
             printf("ボゴソートを選択しました\n\n");
             bogoSort(sort_length());
+            break;
+
+        case 5:
+            printf("Вы выбрал Ста́линСорт\n\n");
+            Ста́линСорт(sort_length_for_СталинСорт());
             break;
 
         default:
